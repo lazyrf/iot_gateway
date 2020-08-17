@@ -273,3 +273,15 @@ mainmenu "Project Configuration"
             string
             default "-u_scanf_float" if CC_FLAG_USE_SCANF_FLOAT && y
     endmenu
+
+    menu "Board"
+        choice BOARD
+            prompt "Target board"
+
+            config BOARD_STM32F405RG
+                bool "STM32F405RG board"
+
+            config BOARD_STM32F407ZG
+                bool "STM32F407ZG board"
+        endchoice
+    endmenu
