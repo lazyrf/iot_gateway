@@ -118,7 +118,7 @@ menuconfig:
 	@$(MAKE) -f scripts/Makefile $@
 
 flash:
-	sudo st-flash --reset write $(OUTPUT_BIN) 0x08000000
+	sudo st-flash --reset write $(OUT_BIN) 0x08000000
 
 probe:
 	sudo st-info --probe
