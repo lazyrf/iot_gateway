@@ -1,0 +1,46 @@
+
+-include $(TOPDIR)/.config
+
+obj-y += misc.o
+obj-$(CONFIG_CPU_PERI_ADC) += stm32f4xx_adc.o
+obj-$(CONFIG_CPU_PERI_CAN) += stm32f4xx_can.o
+obj-$(CONFIG_CPU_PERI_CEC) += stm32f4xx_cec.o
+obj-$(CONFIG_CPU_PERI_CRC) += stm32f4xx_crc.o
+obj-$(CONFIG_CPU_PERI_CRYP) += stm32f4xx_cryp.o
+obj-$(CONFIG_CPU_PERI_CRYP) += stm32f4xx_cryp_aes.o
+obj-$(CONFIG_CPU_PERI_CRYP) += stm32f4xx_cryp_des.o
+obj-$(CONFIG_CPU_PERI_CRYP) += stm32f4xx_cryp_tdes.o
+obj-$(CONFIG_CPU_PERI_DAC) += stm32f4xx_dac.o
+obj-$(CONFIG_CPU_PERI_DBGMCU) += stm32f4xx_dbgmcu.o
+obj-$(CONFIG_CPU_PERI_DCMI) += stm32f4xx_dcmi.o
+obj-$(CONFIG_CPU_PERI_DFSDM) += stm32f4xx_dfsdm.o
+obj-$(CONFIG_CPU_PERI_DMA) += stm32f4xx_dma.o
+obj-$(CONFIG_CPU_PERI_DMA2D) += stm32f4xx_dma2d.o
+obj-$(CONFIG_CPU_PERI_DSI) += stm32f4xx_dsi.o
+obj-$(CONFIG_CPU_PERI_EXTI) += stm32f4xx_exti.o
+obj-$(CONFIG_CPU_PERI_FLASH) += stm32f4xx_flash.o
+obj-$(CONFIG_CPU_PERI_FLASH) += stm32f4xx_flash_ramfunc.o
+obj-$(CONFIG_CPU_PERI_FMC) += stm32f4xx_fmc.o
+obj-$(CONFIG_CPU_PERI_FMPI2C) += stm32f4xx_fmpi2c.o
+obj-$(CONFIG_CPU_PERI_FSMC) += stm32f4xx_fsmc.o
+obj-$(CONFIG_CPU_PERI_GPIO) += stm32f4xx_gpio.o
+obj-$(CONFIG_CPU_PERI_HASH) += stm32f4xx_hash.o
+obj-$(CONFIG_CPU_PERI_HASH) += stm32f4xx_hash_md5.o
+obj-$(CONFIG_CPU_PERI_HASH) += stm32f4xx_hash_sha1.o
+obj-$(CONFIG_CPU_PERI_I2C) += stm32f4xx_i2c.o
+obj-$(CONFIG_CPU_PERI_IWDG) += stm32f4xx_iwdg.o
+obj-$(CONFIG_CPU_PERI_LPTIM) += stm32f4xx_lptim.o
+obj-$(CONFIG_CPU_PERI_LTDC) += stm32f4xx_ltdc.o
+obj-$(CONFIG_CPU_PERI_PWR) += stm32f4xx_pwr.o
+obj-$(CONFIG_CPU_PERI_QSPI) += stm32f4xx_qspi.o
+obj-$(CONFIG_CPU_PERI_RCC) += stm32f4xx_rcc.o
+obj-$(CONFIG_CPU_PERI_RNG) += stm32f4xx_rng.o
+obj-$(CONFIG_CPU_PERI_RTC) += stm32f4xx_rtc.o
+obj-$(CONFIG_CPU_PERI_SAI) += stm32f4xx_sai.o
+obj-$(CONFIG_CPU_PERI_SDIO) += stm32f4xx_sdio.o
+obj-$(CONFIG_CPU_PERI_SPDIFRX) += stm32f4xx_spdifrx.o
+obj-$(CONFIG_CPU_PERI_SPI) += stm32f4xx_spi.o
+obj-$(CONFIG_CPU_PERI_SYSCFG) += stm32f4xx_syscfg.o
+obj-$(CONFIG_CPU_PERI_TIM) += stm32f4xx_tim.o
+obj-$(CONFIG_CPU_PERI_USART) += stm32f4xx_usart.o
+obj-$(CONFIG_CPU_PERI_WWDG) += stm32f4xx_wwdg.o

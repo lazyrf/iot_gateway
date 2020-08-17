@@ -1,0 +1,145 @@
+menu "Peripheral"
+	config CPU_PERI_ADC
+		bool "ADC"
+		default n
+
+	config CPU_PERI_CAN
+		bool "CAN"
+		default n
+
+	config CPU_PERI_CEC
+		bool "CEC"
+		default n
+
+	config CPU_PERI_CRC
+		bool "CRC"
+		default y
+
+	config CPU_PERI_CRYP
+		bool "CRPY"
+		default n
+
+	config CPU_PERI_DAC
+		bool "DAC"
+		default n
+
+	config CPU_PERI_DBGMCU
+		bool "DBGMCU"
+		default n
+
+	config CPU_PERI_DCMI
+		bool "DCMI"
+		default n
+
+	config CPU_PERI_DFSDM
+		bool "DFSDM"
+		default n
+
+	config CPU_PERI_DMA
+		bool "DMA"
+		default y
+
+	config CPU_PERI_DMA2D
+		bool "DMA2D"
+		default n
+
+	config CPU_PERI_DSI
+		bool "DSI"
+		default n
+
+	config CPU_PERI_EXTI
+		bool "EXTI"
+		default y
+
+	config CPU_PERI_FLASH
+		bool "FLASH"
+		default y
+
+	config CPU_PERI_FMC
+		bool "FMC"
+		default n
+
+	config CPU_PERI_FMPI2C
+		bool "FMPI2C"
+		default n
+
+	config CPU_PERI_FSMC
+		bool "FSMC"
+		default n
+
+	config CPU_PERI_GPIO
+		bool "GPIO"
+		default y
+
+	config CPU_PERI_HASH
+		bool "HASH"
+		default n
+
+	config CPU_PERI_I2C
+		bool "I2C"
+		default y
+
+	config CPU_PERI_IWDG
+		bool "IWDG"
+		default y
+
+	config CPU_PERI_LPTIME
+		bool "LPTIME"
+		default n
+
+	config CPU_PERI_LTDC
+		bool "LTDC"
+		default n
+
+	config CPU_PERI_PWR
+		bool "PWR"
+		default y
+
+	config CPU_PERI_QSPI
+		bool "QSPI"
+		default n
+
+	config CPU_PERI_RCC
+		bool "RCC"
+		default y
+
+	config CPU_PERI_RNG
+		bool "RNG"
+		default n
+
+	config CPU_PERI_RTC
+		bool "RTC"
+		default y
+
+	config CPU_PERI_SAI
+		bool "SAI"
+		default n
+
+	config CPU_PERI_SDIO
+		bool "SDIO"
+		default y
+
+	config CPU_PERI_SPDIFRX
+		bool "SPDIFRX"
+		default n
+
+	config CPU_PERI_SPI
+		bool "SPI"
+		default y
+
+	config CPU_PERI_SYSCFG
+		bool "SYSCFG"
+		default y
+
+	config CPU_PERI_TIM
+		bool "TIM"
+		default y
+
+	config CPU_PERI_USART
+		bool "USART"
+		default y
+
+	config CPU_PERI_WWDG
+		bool "WWDG"
+		default n
+endmenu

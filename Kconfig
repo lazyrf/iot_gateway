@@ -1,0 +1,275 @@
+mainmenu "Project Configuration"
+
+    menu "MCU"
+        # Core option
+        choice CPU_CORE
+            prompt "CPU Core"
+            default CPU_CORE_CM4
+            help
+                Cortex-M3
+                Cortex-M4
+
+            config CPU_CORE_CM3
+                bool "Cortex-M3"
+
+            config CPU_CORE_CM4
+                bool "Cortex-M4"
+        endchoice
+
+        config CPU_CORE
+            string
+            default "cortex-m3" if CPU_CORE_CM3
+            default "cortex-m4" if CPU_CORE_CM4
+
+        # MCU series
+        choice MCU_SERIES
+            prompt "MCU series"
+            default MCU_SERIES_STM32F4XX
+
+            config MCU_SERIES_STM32F10X_MD
+                bool "STM32F10X_MD"
+                depends on CPU_CORE_CM3
+
+            config MCU_SERIES_STM32F4XX
+                bool "STM32F4XX"
+                depends on CPU_CORE_CM4
+
+        endchoice
+
+        config MCU_SERIES
+            string
+            default "STM32F10X_MD" if MCU_SERIES_STM32F10X_MD
+            default "STM32F40XX" if MCU_SERIES_STM32F4XX
+
+        config MCU_HSE_CLOCK
+            int "High Speed External Clock"
+            default 12000000
+
+        source "bsp/sdk/STM32F4xx_StdPeriph_Driver/Kconfig"
+    endmenu
+
+    menu "Compiler"
+        # Debug option
+        choice CC_DEBUG_LEVEL
+            prompt "Debug Level"
+            default CC_DEBUG_LEVEL_0
+            help
+                -g Debug information depend on OS (stabs, COFF, XCOFF or DWARF)
+                -g0 No debug information
+                -g1 Minimal debug information
+                -g3 Maximum debug information
+
+            config CC_DEBUG_LEVEL_DEPEND_ON_OS
+                bool "-g"
+
+            config CC_DEBUG_LEVEL_0
+                bool "-g0"
+
+            config CC_DEBUG_LEVEL_1
+                bool "-g1"
+
+            config CC_DEBUG_LEVEL_3
+                bool "-g3"
+        endchoice
+
+        config CC_DEBUG_LEVEL
+            string
+            default "-g" if CC_DEBUG_LEVEL_DEPEND_ON_OS
+            default "-g0" if CC_DEBUG_LEVEL_0
+            default "-g1" if CC_DEBUG_LEVEL_1
+            default "-g3" if CC_DEBUG_LEVEL_3
+
+        # C standard
+        choice CC_C_STANDARD
+            prompt "C Standard"
+            default CC_C_STD_C99
+
+            config CC_C_STD_C90
+                bool "c90"
+
+            config CC_C_STD_GNU90
+                bool "gnu90"
+
+            config CC_C_STD_C99
+                bool "c99"
+
+            config CC_C_STD_GNU99
+                bool "gnu99"
+
+            config CC_C_STD_C11
+                bool "c11"
+
+            config CC_C_STD_GNU11
+                bool "gnu11"
+        endchoice
+
+        config CC_C_STANDARD
+            string
+            default "c90" if CC_C_STD_C90
+            default "c99" if CC_C_STD_C99
+            default "c11" if CC_C_STD_C11
+            default "gnu90" if CC_C_STD_GNU90
+            default "gnu99" if CC_C_STD_GNU99
+            default "gnu11" if CC_C_STD_GNU11
+
+        # Optimization Level
+        choice CC_OPTIMIZATION_LEVEL
+            prompt "Optimization Level"
+            default CC_OPTIMIZATION_LEVEL_1
+            help
+                -Og Standard edit-compile-debug cycle
+                -O0 Without optimization
+                -O1 Compiler tries to reduce code size and execution time
+                -O2 Compiler performs nearly all supported optimizations
+                -O3 TUrn on all optimizations
+                -Os Optimization for size
+
+            config CC_OPTIMIZATION_LEVEL_G
+                bool "-Og"
+
+            config CC_OPTIMIZATION_LEVEL_0
+                bool "-O0"
+
+            config CC_OPTIMIZATION_LEVEL_1
+                bool "-O1"
+
+            config CC_OPTIMIZATION_LEVEL_2
+                bool "-O2"
+
+            config CC_OPTIMIZATION_LEVEL_3
+                bool "-O3"
+
+            config CC_OPTIMIZATION_LEVEL_S
+                bool "-Os"
+        endchoice
+
+        config CC_OPTIMIZATION_LEVEL
+            string
+            default "-Og" if CC_OPTIMIZATION_LEVEL_G
+            default "-O0" if CC_OPTIMIZATION_LEVEL_0
+            default "-O1" if CC_OPTIMIZATION_LEVEL_1
+            default "-O2" if CC_OPTIMIZATION_LEVEL_2
+            default "-O3" if CC_OPTIMIZATION_LEVEL_3
+            default "-Os" if CC_OPTIMIZATION_LEVEL_S
+
+        # Data Section
+        config CC_FLAG_DATA_SECTIONS
+            bool "-fdata-sections"
+            default y
+            help
+                Place data in their own sections
+
+        config CC_DATA_SECTIONS
+            string
+            default "-fdata-sections" if CC_FLAG_DATA_SECTIONS && y
+
+        # Function Section
+        config CC_FLAG_FUNCTION_SECTIONS
+            bool "-ffunction-sections"
+            default y
+            help
+                Place functions in their own sections
+
+        config CC_FUNCTION_SECTIONS
+            string
+            default "-ffunction-sections" if CC_FLAG_FUNCTION_SECTIONS && y
+
+        # Stack usage
+        config CC_FLAG_STACK_USAGE
+            bool "-fstack-usage"
+            default y
+            help
+                A unit compiled with -fstack-usage will generate an extra file that specifies the maximum of stack used, on a per-function basis
+
+        config CC_STACK_USAGE
+            string
+            default "-fstack-usage" if CC_FLAG_STACK_USAGE && y
+
+        # Warning all
+        config CC_FLAG_WARNING_ALL
+            bool "-Wall"
+            default y
+            help
+                This enables all the warnings about constructions that some users consider questionable, and that are easy to avoid (or modify to prevent the warning), even in conjuction with marcos
+
+        config CC_WARNING_ALL
+            string
+            default "-Wall" if CC_FLAG_WARNING_ALL && y
+
+        # Warning error
+        config CC_FLAG_WARNING_ERROR
+            bool "-Werror"
+            default n
+            help
+                Make all warnings into errors
+
+        config CC_WARNING_ERROR
+            string
+            default "-Werror" if CC_FLAG_WARNING_ERROR && y
+
+        # Warning extra
+        config CC_FLAG_WARNING_EXTRA
+            bool "-Wextra"
+            default y
+            help
+                This enables some extra warning flags that are not enabled by -Wall
+
+        config CC_WARNING_EXTRA
+            string
+            default "-Wextra" if CC_FLAG_WARNING_EXTRA && y
+
+        # Warning no used parameter
+        config CC_FLAG_WARNING_NO_UNUSED_PARAMETER
+            bool "-Wno-unused-parameter"
+            default y
+            help
+                Turn off warn whenever a function parameter is unused aside from its declaration
+
+        config CC_WARNING_NO_UNUSED_PARAMETER
+            string
+            default "-Wno-unused-parameter" if CC_FLAG_WARNING_NO_UNUSED_PARAMETER && y
+
+        # Warning switch default
+        config CC_FLAG_WARNING_SWITCH_DEFAULT
+            bool "-Wswitch-default"
+            default n
+            help
+                Warn whenever a switch statement does not have a default case
+
+        config CC_WARNING_SWITCH_DEFAULT
+            string
+            default "-Wswitch-default" if CC_FLAG_WARNING_SWITCH_DEFAULT && y
+
+        # Warning switch enum
+        config CC_FLAG_WARNING_SWITCH_ENUM
+            bool "-Wswitch-enum"
+            default y
+            help
+                Warn whenever a switch statement has an index of enumerated type and lacks a case for one or more of the named codes of that enumeration
+
+        config CC_WARNING_SWITCH_ENUM
+            string
+            default "-Wswitch-enum" if CC_FLAG_WARNING_SWITCH_ENUM && y
+
+        # Printf float
+        config CC_FLAG_USE_PRINTF_FLOAT
+            bool "-u_printf_float"
+            default y
+            help
+                Use float with printf from newlib-nano
+
+        config CC_USE_PRINTF_FLOAT
+            string
+            default "-u_printf_float" if CC_FLAG_USE_PRINTF_FLOAT && y
+
+        # Scanf float
+        config CC_FLAG_USE_SCANF_FLOAT
+            bool "-u_scanf_float"
+            default n
+            help
+                Use float with scanf from newlib-nano
+
+        config CC_USE_SCANF_FLOAT
+            string
+            default "-u_scanf_float" if CC_FLAG_USE_SCANF_FLOAT && y
+    endmenu
