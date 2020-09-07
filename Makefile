@@ -72,7 +72,7 @@ CFLAGS = $(CORE) \
 	 $(addprefix -I,$(INC))
 
 
-ifeq ($(CONFIG_MCU_SERIES),STM32F40XX)
+ifeq ($(CONFIG_MCU_SERIES),"STM32F40XX")
 LDSCRIPT = $(LDDIR)/stm32f40x.ld
 endif
 
@@ -111,6 +111,7 @@ $(OUT_BIN): $(OUT_ELF)
 	$(OBJCOPY) -O binary -S $< $@
 
 $(OUT_ELF): $(OUTDIR)/built-in.o
+	@echo "Linker script: " $(LDSCRIPT)
 	$(CC) -o $@ $< $(LDFLAGS)
 	$(SIZE) $@
 
