@@ -31,15 +31,16 @@ export TOPDIR OUTDIR
 
 CPU = $(patsubst "%",%,$(CONFIG_CPU_CORE))
 
-INC = .\
+INC = . \
+	$(TOPDIR) \
 	$(APPDIR) \
 	$(COREDIR) \
 	$(BSPDIR)/sdk \
 	$(BSPDIR)/sdk/CMSIS/Include \
 	$(BSPDIR)/sdk/CMSIS/Device/ST/STM32F4xx/Include \
 	$(BSPDIR)/sdk/STM32F4xx_StdPeriph_Driver/inc \
-	$(BSPDIR)/boards \
-	$(BSPDIR)/drivers
+	$(BSPDIR)/board \
+	$(BSPDIR)/driver
 
 CORE = -mcpu=$(CPU) -mthumb -mfloat-abi=soft
 
@@ -52,12 +53,6 @@ FLAGS = $(patsubst "%",%,$(CONFIG_CC_USE_PRINTF_FLOAT)) \
 DEFINITIONS = $(patsubst "%",%,$(CONFIG_MCU_SERIES)) \
        USE_STDPERIPH_DRIVER \
        HSE_VALUE=$(CONFIG_MCU_HSE_CLOCK)
-
-ifeq ($(CONFIG_BOARD_STM32F405RG),y)
-	DEFINITIONS += BOARD_STM32F405RGT
-else ifeq ($(CONFIG_BOARD_STM32F407ZG),y)
-	DEFINITIONS += BOARD_STM32F407ZGT
-endif
 
 CFLAGS = $(CORE) \
 	 $(FLAGS) \
