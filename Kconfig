@@ -278,10 +278,10 @@ mainmenu "Project Configuration"
         choice BOARD
             prompt "Target board"
 
-            config BOARD_STM32F405RG
+            config BOARD_STM32F405RGT
                 bool "STM32F405RG board"
 
-            config BOARD_STM32F407ZG
+            config BOARD_STM32F407ZGT
                 bool "STM32F407ZG board"
         endchoice
     endmenu
