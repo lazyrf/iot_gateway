@@ -82,7 +82,7 @@ mainmenu "Project Configuration"
         # C standard
         choice CC_C_STANDARD
             prompt "C Standard"
-            default CC_C_STD_C99
+            default CC_C_STD_GNU11
 
             config CC_C_STD_C90
                 bool "c90"
