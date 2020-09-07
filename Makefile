@@ -41,7 +41,7 @@ INC = .\
 	$(BSPDIR)/boards \
 	$(BSPDIR)/drivers
 
-CORE = -mcpu=$(CPU) -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16
+CORE = -mcpu=$(CPU) -mthumb -mfloat-abi=soft
 
 OPTIMIZATION = $(patsubst "%",%,$(CONFIG_CC_OPTIMIZATION_LEVEL)) \
 	       $(patsubst "%",%,$(CONFIG_CC_DEBUG_LEVEL))
@@ -78,7 +78,7 @@ CFLAGS = $(CORE) \
 
 
 ifeq ($(CONFIG_MCU_SERIES),STM32F40XX)
-LDSCRIPT = $(LDDIR)/stm32f40xx.ld
+LDSCRIPT = $(LDDIR)/stm32f40x.ld
 endif
 
 LDFLAGS = $(CORE) \
@@ -86,8 +86,7 @@ LDFLAGS = $(CORE) \
 	$(addprefix -T,$(LDSCRIPT)) \
 	-Wl,-Map=$(OUTDIR)/$(PROJ_NAME).map,--cref \
 	-Wl,--gc-section \
-	-specs=nano.specs \
-	-specs=nosys.specs
+	-specs=nano.specs
 export CFLAGS LDFLAGS
 
 
