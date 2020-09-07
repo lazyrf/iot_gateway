@@ -7,4 +7,8 @@
 #include "board_stm32f405rgt.h"
 #endif 
 
+void board_leds_init(void);
+void board_leds_on(void);
+void board_leds_off(void);
+
 #endif /* __BOARD_H */
