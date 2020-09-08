@@ -10,5 +10,6 @@
 void board_leds_init(void);
 void board_leds_on(void);
 void board_leds_off(void);
+void board_leds_toggle(void);
 
 #endif /* __BOARD_H */
