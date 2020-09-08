@@ -10,14 +10,14 @@ typedef struct {
     GPIO_TypeDef *port;
     uint16_t pin;
     uint16_t active_state;
-} gpio_pin_t;
+} drv_gpio_cfg_t;
 
-void drv_gpio_cfg_output(gpio_pin_t pin);
-void drv_gpio_cfg_input(gpio_pin_t gpio);
-void drv_gpio_pin_on(gpio_pin_t gpio);
-void drv_gpio_pin_off(gpio_pin_t gpio);
-void drv_gpio_pin_toggle(gpio_pin_t gpio);
-uint8_t drv_gpio_pin_get_out_state(gpio_pin_t gpio);
-uint8_t drv_gpio_pin_get_in_state(gpio_pin_t gpio);
+void drv_gpio_cfg_output(drv_gpio_cfg_t pin);
+void drv_gpio_cfg_input(drv_gpio_cfg_t gpio);
+void drv_gpio_pin_on(drv_gpio_cfg_t gpio);
+void drv_gpio_pin_off(drv_gpio_cfg_t gpio);
+void drv_drv_gpio_cfg_toggle(drv_gpio_cfg_t gpio);
+uint8_t drv_gpio_pin_get_out_state(drv_gpio_cfg_t gpio);
+uint8_t drv_gpio_pin_get_in_state(drv_gpio_cfg_t gpio);
 
 #endif /* __DRV_GPIO_H */

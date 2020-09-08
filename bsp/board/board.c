@@ -3,7 +3,7 @@
 #include "assert.h"
 
 #if BOARD_LED_NUM > 0
-gpio_pin_t led_gpio_list[BOARD_LED_NUM] = BOARD_LED_LIST;
+drv_gpio_cfg_t led_gpio_list[BOARD_LED_NUM] = BOARD_LED_LIST;
 
 void board_led_toggle(int idx)
 {
@@ -53,7 +53,7 @@ void board_leds_init(void)
 #endif /* BOARD_LED_NUM > 0 */
 
 #if BOARD_DO_NUM > 0
-gpio_pin_t do_gpio_list[BOARD_DO_NUM] = BOARD_DO_LIST;
+drv_gpio_cfg_t do_gpio_list[BOARD_DO_NUM] = BOARD_DO_LIST;
 
 
 void board_do_off(int idx)
@@ -91,7 +91,7 @@ void board_dos_init(void)
 #endif /* BOARD_DO_NUM > 0 */
 
 #if BOARD_DI_NUM > 0
-gpio_pin_t di_gpio_list[BOARD_DI_NUM] = BOARD_DI_LIST;
+drv_gpio_cfg_t di_gpio_list[BOARD_DI_NUM] = BOARD_DI_LIST;
 
 uint8_t board_di_status(int idx)
 {
