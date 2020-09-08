@@ -35,6 +35,7 @@ INC = . \
 	$(TOPDIR) \
 	$(APPDIR) \
 	$(COREDIR) \
+	$(COREDIR)/inc \
 	$(BSPDIR)/sdk \
 	$(BSPDIR)/sdk/CMSIS/Include \
 	$(BSPDIR)/sdk/CMSIS/Device/ST/STM32F4xx/Include \
