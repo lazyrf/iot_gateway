@@ -41,9 +41,15 @@ mainmenu "Project Configuration"
             default "STM32F10X_MD" if MCU_SERIES_STM32F10X_MD
             default "STM32F40XX" if MCU_SERIES_STM32F4XX
 
-        config MCU_HSE_CLOCK
-            int "High Speed External Clock"
-            default 12000000
+        menu "Clock"
+            config MCU_HSE_CLOCK
+                int "High Speed External Clock"
+                default 12000000
+
+            config MCU_PLL_M
+                int "Division factor for main PLL"
+                default 12
+        endmenu
 
         source "bsp/sdk/STM32F4xx_StdPeriph_Driver/Kconfig"
     endmenu
