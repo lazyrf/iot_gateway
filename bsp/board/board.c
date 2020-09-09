@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #include "board.h"
 #include "drv_gpio.h"
 #include "assert.h"
@@ -107,6 +109,24 @@ void board_dis_init(void)
 }
 #endif /* BOARD_DI_NUM > 0 */
 
+#if BOARD_UART_NUM > 0
+drv_uart_cfg_t uart_list[BOARD_UART_NUM] = BOARD_UART_LIST;
+
+int __io_putchar(int ch)
+{
+    drv_uart_send_byte(uart_list[0], ch);
+    return (ch);
+}
+
+void board_uarts_init(void)
+{
+    for (int idx = 0; idx < BOARD_UART_NUM; idx++) {
+        drv_uart_init(uart_list[idx]);
+    }
+}
+
+#endif /* BOARD_UART_NUM > 0 */
+
 void board_init(void)
 {
 #if BOARD_LED_NUM > 0
@@ -120,4 +140,8 @@ void board_init(void)
 #if BOARD_DI_NUM > 0
     board_dis_init();
 #endif /* BOARD_DI_NUM > 0 */
+
+#if BOARD_UART_NUM > 0
+    board_uarts_init();
+#endif /* BOARD_UART_NUM > 0 */
 }
