@@ -14,9 +14,10 @@ typedef struct {
 
 void drv_gpio_cfg_output(drv_gpio_cfg_t pin);
 void drv_gpio_cfg_input(drv_gpio_cfg_t gpio);
+void drv_gpio_cfg_af_pp(drv_gpio_cfg_t gpio, uint32_t af);
 void drv_gpio_pin_on(drv_gpio_cfg_t gpio);
 void drv_gpio_pin_off(drv_gpio_cfg_t gpio);
-void drv_drv_gpio_cfg_toggle(drv_gpio_cfg_t gpio);
+void drv_gpio_pin_toggle(drv_gpio_cfg_t gpio);
 uint8_t drv_gpio_pin_get_out_state(drv_gpio_cfg_t gpio);
 uint8_t drv_gpio_pin_get_in_state(drv_gpio_cfg_t gpio);
 

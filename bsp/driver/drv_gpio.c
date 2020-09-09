@@ -66,3 +66,23 @@ void drv_gpio_cfg_output(drv_gpio_cfg_t gpio)
     gpio_cfg.GPIO_Speed = GPIO_Fast_Speed;
     GPIO_Init(gpio.port, &gpio_cfg);
 }
+
+void drv_gpio_cfg_af_pp(drv_gpio_cfg_t gpio, uint32_t af)
+{
+    GPIO_InitTypeDef gpio_cfg;
+    void (*rcc_clk_cmd)(uint32_t, FunctionalState);
+
+    /* Enable clock */
+    rcc_clk_cmd = gpio.clk_cmd;
+    rcc_clk_cmd(gpio.clk, ENABLE);
+
+    /* GPIO init structure */
+    gpio_cfg.GPIO_Pin = gpio.pin;
+    gpio_cfg.GPIO_Mode = GPIO_Mode_AF;
+    gpio_cfg.GPIO_OType = GPIO_OType_PP;
+    gpio_cfg.GPIO_PuPd = (gpio.active_state) ? GPIO_PuPd_DOWN : GPIO_PuPd_UP;
+    gpio_cfg.GPIO_Speed = GPIO_High_Speed;
+    GPIO_Init(gpio.port, &gpio_cfg);
+
+    GPIO_PinAFConfig(gpio.port, (31 - __builtin_clz(gpio.pin)), af);
+}
