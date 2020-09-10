@@ -1,8 +1,8 @@
 #include <stdio.h>
 
 #include "board.h"
-#include "drv_gpio.h"
 #include "assert.h"
+#include "drv_core.h"
 
 #if BOARD_LED_NUM > 0
 drv_gpio_cfg_t led_gpio_list[BOARD_LED_NUM] = BOARD_LED_LIST;
@@ -129,6 +129,8 @@ void board_uarts_init(void)
 
 void board_init(void)
 {
+    drv_core_systick_init();
+
 #if BOARD_LED_NUM > 0
     board_leds_init();
 #endif /* BOARD_LED_NUM > 0 */
