@@ -129,6 +129,9 @@ probe:
 erase:
 	sudo st-flash erase
 
+debug:
+	openocd -f interface/stlink.cfg -f target/stm32f4x.cfg
+
 clean:
 	rm -f $(shell find -name "*.o")
 	rm -f $(shell find -name "*.su")
