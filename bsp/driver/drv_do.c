@@ -3,6 +3,14 @@
 #include "hal_gpio.h"
 #include "assert.h"
 
+void drv_do_set_reset(int idx)
+{
+    assert(idx < BOARD_DO_NUM);
+    hal_gpio_pin_on(do_gpio_list[idx]);
+    for (uint32_t delay = 0x5FFFF; delay > 0; delay--);
+    hal_gpio_pin_off(do_gpio_list[idx]);
+}
+
 void drv_do_off(int idx)
 {
     assert(idx < BOARD_DO_NUM);
