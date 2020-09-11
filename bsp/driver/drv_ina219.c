@@ -1,6 +1,6 @@
 #include "drv_ina219.h"
 #include "hal_i2c.h"
-#include "ig_errno.h"
+#include "igw_errno.h"
 #include "board.h"
 
 uint32_t calib_val;
@@ -17,14 +17,14 @@ static uint16_t _htons(uint16_t xx)
     return yy;
 }
 
-ig_err_e drv_ina219_shunt_voltage_get(float *voltage)
+igw_err_t drv_ina219_shunt_voltage_get(float *voltage)
 {
     uint16_t data = 0;
     int16_t val;
-    ig_err_e rv;
+    igw_err_t rv;
 
     rv = hal_i2c_byte_read(i2c_list[BOARD_I2C_SESNOR_IDX], INA219_SLAVE_ADDR, INA219_SHUNT_VOLT_REG, sizeof(uint16_t), (uint8_t *) &data);
-    if (rv != IG_ERR_OK) {
+    if (rv != IGW_ERR_OK) {
         return rv;
     }
 
@@ -32,17 +32,17 @@ ig_err_e drv_ina219_shunt_voltage_get(float *voltage)
     // LSB is 10uV, convert to mV
     *voltage = val * 0.01;
 
-    return IG_ERR_OK;
+    return IGW_ERR_OK;
 }
 
-ig_err_e drv_ina219_bus_voltage_get(float *voltage)
+igw_err_t drv_ina219_bus_voltage_get(float *voltage)
 {
     uint16_t data = 0;
     int16_t val;
-    ig_err_e rv;
+    igw_err_t rv;
 
     rv = hal_i2c_byte_read(i2c_list[BOARD_I2C_SESNOR_IDX], INA219_SLAVE_ADDR, INA219_BUS_VOLT_REG, sizeof(uint16_t), (uint8_t *) &data);
-    if (rv != IG_ERR_OK) {
+    if (rv != IGW_ERR_OK) {
         return rv;
     }
 
@@ -50,40 +50,40 @@ ig_err_e drv_ina219_bus_voltage_get(float *voltage)
     val = (_htons(data) >> 3) * 4;
     *voltage = val * 0.001;
 
-    return IG_ERR_OK;
+    return IGW_ERR_OK;
 }
 
-ig_err_e drv_ina219_config_get(ina219_config_t *config)
+igw_err_t drv_ina219_config_get(ina219_config_t *config)
 {
-    ig_err_e rv;
+    igw_err_t rv;
 
     rv = hal_i2c_byte_read(i2c_list[BOARD_I2C_SESNOR_IDX], INA219_SLAVE_ADDR, INA219_CONF_REG, sizeof(config), (uint8_t *) config);
-    if (rv != IG_ERR_OK) {
+    if (rv != IGW_ERR_OK) {
         return rv;
     }
 
     config->val = _htons(config->val);
-    return IG_ERR_OK;
+    return IGW_ERR_OK;
 }
 
-ig_err_e drv_ina219_config_set(ina219_config_t config)
+igw_err_t drv_ina219_config_set(ina219_config_t config)
 {
     config.val = _htons(config.val);
     return hal_i2c_byte_write(i2c_list[BOARD_I2C_SESNOR_IDX], INA219_SLAVE_ADDR, INA219_CONF_REG, sizeof(config), (uint8_t *) &config);
 }
 
-ig_err_e drv_ina219_cali_get(uint16_t *data)
+igw_err_t drv_ina219_cali_get(uint16_t *data)
 {
-    ig_err_e rv;
+    igw_err_t rv;
 
     rv = hal_i2c_byte_read(i2c_list[BOARD_I2C_SESNOR_IDX], INA219_SLAVE_ADDR, INA219_CALIB_REG, sizeof(uint16_t), (uint8_t *) data);
-    if (rv == IG_ERR_OK) {
+    if (rv == IGW_ERR_OK) {
         *data = _htons(*data);
     }
     return rv;
 }
 
-ig_err_e drv_ina219_calib_set(uint16_t data)
+igw_err_t drv_ina219_calib_set(uint16_t data)
 {
     uint16_t tmp = _htons(data);
 	return hal_i2c_byte_write(i2c_list[BOARD_I2C_SESNOR_IDX], INA219_SLAVE_ADDR, INA219_CALIB_REG, sizeof(uint16_t), (uint8_t *) &tmp);
@@ -94,11 +94,11 @@ ig_err_e drv_ina219_calib_set(uint16_t data)
  *          config settings and current LSB
  *  @return the current reading convereted to milliamps
  */
-ig_err_e drv_ina219_current_get(float *current)
+igw_err_t drv_ina219_current_get(float *current)
 {
     uint16_t data;
     int16_t val;
-    ig_err_e rv;
+    igw_err_t rv;
 
     // Sometimes a sharp load will reset the INA219, which will
     // reset the cal register, meaning CURRENT and POWER will
@@ -108,7 +108,7 @@ ig_err_e drv_ina219_current_get(float *current)
 
     // Now we can safely read the CURRENT register!
     rv = hal_i2c_byte_read(i2c_list[BOARD_I2C_SESNOR_IDX], INA219_SLAVE_ADDR, INA219_CURRENT_REG, sizeof(uint16_t), (uint8_t *) &data);
-    if (rv != IG_ERR_OK) {
+    if (rv != IGW_ERR_OK) {
         return rv;
     }
 
@@ -122,7 +122,7 @@ ig_err_e drv_ina219_current_get(float *current)
  *          config settings and current LSB
  *  @return power reading converted to milliwatts
  */
-ig_err_e drv_ina219_power_get(float *power)
+igw_err_t drv_ina219_power_get(float *power)
 {
     uint16_t data;
     int16_t val;
@@ -136,7 +136,7 @@ ig_err_e drv_ina219_power_get(float *power)
 
     // Now we can safely read the POWER register!
     rv = hal_i2c_byte_read(i2c_list[BOARD_I2C_SESNOR_IDX], INA219_SLAVE_ADDR, INA219_PWR_REG, sizeof(uint16_t), (uint8_t *) &data);
-    if (rv != IG_ERR_OK) {
+    if (rv != IGW_ERR_OK) {
         return rv;
     }
 

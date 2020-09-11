@@ -6,11 +6,11 @@
         if ((wait_time--) == 0) hal_i2c_err_cb((err_code)); \
     } while (0);
 
-void hal_i2c_err_cb(ig_err_e err)
+void hal_i2c_err_cb(igw_err_t err)
 {
 }
 
-ig_err_e hal_i2c_byte_write(hal_i2c_cfg_t i2c, uint8_t slave_addr, uint8_t reg_addr, uint8_t len, uint8_t const *data)
+igw_err_t hal_i2c_byte_write(hal_i2c_cfg_t i2c, uint8_t slave_addr, uint8_t reg_addr, uint8_t len, uint8_t const *data)
 {
     uint8_t i;
 
@@ -18,21 +18,21 @@ ig_err_e hal_i2c_byte_write(hal_i2c_cfg_t i2c, uint8_t slave_addr, uint8_t reg_a
     I2C_GenerateSTART(i2c.i2c, ENABLE);
     /* Test on EV5 and clear it */
     while (!I2C_CheckEvent(i2c.i2c, I2C_EVENT_MASTER_MODE_SELECT)) {
-        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IG_ERR_HAL_I2C_SEND_START);
+        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IGW_ERR_HAL_I2C_SEND_START);
     }
 
     /* Send slave address for write */
     I2C_Send7bitAddress(i2c.i2c, (slave_addr << 1), I2C_Direction_Transmitter);
     /* Test on EV6 and clear it */
     while (!I2C_CheckEvent(i2c.i2c, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED)) {
-        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IG_ERR_HAL_I2C_SEND_SLAVE_ADDR);
+        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IGW_ERR_HAL_I2C_SEND_SLAVE_ADDR);
     }
 
     /* Send the slave's internal address to write */
     I2C_SendData(i2c.i2c, reg_addr);
     /* Test on EV8 and clear it */
     while (!I2C_CheckEvent(i2c.i2c, I2C_EVENT_MASTER_BYTE_TRANSMITTED)) {
-        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IG_ERR_HAL_I2C_SEND_DATA);
+        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IGW_ERR_HAL_I2C_SEND_DATA);
     }
 
     for (i = 0; i < len; i++) {
@@ -40,34 +40,34 @@ ig_err_e hal_i2c_byte_write(hal_i2c_cfg_t i2c, uint8_t slave_addr, uint8_t reg_a
         I2C_SendData(i2c.i2c, data[i]);
         /* Test on EV8 and clear it */
         while (!I2C_CheckEvent(i2c.i2c, I2C_EVENT_MASTER_BYTE_TRANSMITTED)) {
-            HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IG_ERR_HAL_I2C_SEND_DATA);
+            HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IGW_ERR_HAL_I2C_SEND_DATA);
         }
     }
 
     /* Send STOP condition */
     I2C_GenerateSTOP(i2c.i2c, ENABLE);
 
-    return IG_ERR_OK;
+    return IGW_ERR_OK;
 }
 
-ig_err_e hal_i2c_byte_read(hal_i2c_cfg_t i2c, uint8_t slave_addr, uint8_t reg_addr, uint8_t len, uint8_t *data)
+igw_err_t hal_i2c_byte_read(hal_i2c_cfg_t i2c, uint8_t slave_addr, uint8_t reg_addr, uint8_t len, uint8_t *data)
 {
     while (I2C_GetFlagStatus(i2c.i2c, I2C_FLAG_BUSY)) {
-        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IG_ERR_HAL_I2C_BUSY);
+        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IGW_ERR_HAL_I2C_BUSY);
     }
 
     /* Send START */
     I2C_GenerateSTART(i2c.i2c, ENABLE);
     /* Test on EV5 and clear it */
     while (!I2C_CheckEvent(i2c.i2c, I2C_EVENT_MASTER_MODE_SELECT)) {
-        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IG_ERR_HAL_I2C_SEND_START);
+        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IGW_ERR_HAL_I2C_SEND_START);
     }
 
     /* Send slave address for write */
     I2C_Send7bitAddress(i2c.i2c, (slave_addr << 1), I2C_Direction_Transmitter);
     /* Test on Ev6 and clear it */
     while (!I2C_CheckEvent(i2c.i2c, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED)) {
-        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IG_ERR_HAL_I2C_SEND_SLAVE_ADDR);
+        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IGW_ERR_HAL_I2C_SEND_SLAVE_ADDR);
     }
 
     /* Clear EV6 by setting agian the PE bit */
@@ -77,20 +77,20 @@ ig_err_e hal_i2c_byte_read(hal_i2c_cfg_t i2c, uint8_t slave_addr, uint8_t reg_ad
     I2C_SendData(i2c.i2c, reg_addr);
     /* Test on EV8 and clear it */
     while (!I2C_CheckEvent(i2c.i2c, I2C_EVENT_MASTER_BYTE_TRANSMITTED)) {
-        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IG_ERR_HAL_I2C_SEND_DATA);
+        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IGW_ERR_HAL_I2C_SEND_DATA);
     }
 
 
     /* Send START condition a second time */
     I2C_GenerateSTART(i2c.i2c, ENABLE);
     while (!I2C_CheckEvent(i2c.i2c, I2C_EVENT_MASTER_MODE_SELECT)) {
-        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IG_ERR_HAL_I2C_SEND_START);
+        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IGW_ERR_HAL_I2C_SEND_START);
     }
 
     /* Send slave address for read */
     I2C_Send7bitAddress(i2c.i2c, (slave_addr << 1), I2C_Direction_Receiver);
     while (!I2C_CheckEvent(i2c.i2c, I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED)) {
-        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IG_ERR_HAL_I2C_SEND_SLAVE_ADDR);
+        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IGW_ERR_HAL_I2C_SEND_SLAVE_ADDR);
     }
 
     /* While there is data to be read */
@@ -118,10 +118,10 @@ ig_err_e hal_i2c_byte_read(hal_i2c_cfg_t i2c, uint8_t slave_addr, uint8_t reg_ad
     /* Enable Acknowledgment to be ready for another reception */
     I2C_AcknowledgeConfig(i2c.i2c, ENABLE);
 
-    return IG_ERR_OK;
+    return IGW_ERR_OK;
 }
 
-ig_err_e hal_i2c_u16_write(hal_i2c_cfg_t i2c, uint8_t slave_addr, uint16_t reg_addr, uint8_t len, uint8_t const *data)
+igw_err_t hal_i2c_u16_write(hal_i2c_cfg_t i2c, uint8_t slave_addr, uint16_t reg_addr, uint8_t len, uint8_t const *data)
 {
     uint8_t i;
 
@@ -129,28 +129,28 @@ ig_err_e hal_i2c_u16_write(hal_i2c_cfg_t i2c, uint8_t slave_addr, uint16_t reg_a
     I2C_GenerateSTART(i2c.i2c, ENABLE);
     /* Test on EV5 and clear it */
     while (!I2C_CheckEvent(i2c.i2c, I2C_EVENT_MASTER_MODE_SELECT)) {
-        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IG_ERR_HAL_I2C_SEND_START);
+        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IGW_ERR_HAL_I2C_SEND_START);
     }
 
     /* Send slave address for write */
     I2C_Send7bitAddress(i2c.i2c, (slave_addr << 1), I2C_Direction_Transmitter);
     /* Test on EV6 and clear it */
     while (!I2C_CheckEvent(i2c.i2c, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED)) {
-        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IG_ERR_HAL_I2C_SEND_SLAVE_ADDR);
+        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IGW_ERR_HAL_I2C_SEND_SLAVE_ADDR);
     }
 
     /* Send the slave's internal address to write */
     I2C_SendData(i2c.i2c, (reg_addr >> 8) & 0x00FF);
     /* Test on EV8 and clear it */
     while (!I2C_CheckEvent(i2c.i2c, I2C_EVENT_MASTER_BYTE_TRANSMITTED)) {
-        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IG_ERR_HAL_I2C_SEND_DATA);
+        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IGW_ERR_HAL_I2C_SEND_DATA);
     }
 
     /* Send the slave's internal address to write */
     I2C_SendData(i2c.i2c, reg_addr & 0x00FF);
     /* Test on EV8 and clear it */
     while (!I2C_CheckEvent(i2c.i2c, I2C_EVENT_MASTER_BYTE_TRANSMITTED)) {
-        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IG_ERR_HAL_I2C_SEND_DATA);
+        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IGW_ERR_HAL_I2C_SEND_DATA);
     }
 
     for (i = 0; i < len; i++) {
@@ -158,34 +158,34 @@ ig_err_e hal_i2c_u16_write(hal_i2c_cfg_t i2c, uint8_t slave_addr, uint16_t reg_a
         I2C_SendData(i2c.i2c, data[i]);
         /* Test on EV8 and clear it */
         while (!I2C_CheckEvent(i2c.i2c, I2C_EVENT_MASTER_BYTE_TRANSMITTED)) {
-            HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IG_ERR_HAL_I2C_SEND_DATA);
+            HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IGW_ERR_HAL_I2C_SEND_DATA);
         }
     }
 
     /* Send STOP condition */
     I2C_GenerateSTOP(i2c.i2c, ENABLE);
 
-    return IG_ERR_OK;
+    return IGW_ERR_OK;
 }
 
-ig_err_e hal_i2c_u16_read(hal_i2c_cfg_t i2c, uint8_t slave_addr, uint16_t reg_addr, uint8_t len, uint8_t *data)
+igw_err_t hal_i2c_u16_read(hal_i2c_cfg_t i2c, uint8_t slave_addr, uint16_t reg_addr, uint8_t len, uint8_t *data)
 {
     while (I2C_GetFlagStatus(i2c.i2c, I2C_FLAG_BUSY)) {
-        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IG_ERR_HAL_I2C_BUSY);
+        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IGW_ERR_HAL_I2C_BUSY);
     }
 
     /* Send START */
     I2C_GenerateSTART(i2c.i2c, ENABLE);
     /* Test on EV5 and clear it */
     while (!I2C_CheckEvent(i2c.i2c, I2C_EVENT_MASTER_MODE_SELECT)) {
-        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IG_ERR_HAL_I2C_SEND_START);
+        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IGW_ERR_HAL_I2C_SEND_START);
     }
 
     /* Send slave address for write */
     I2C_Send7bitAddress(i2c.i2c, (slave_addr << 1), I2C_Direction_Transmitter);
     /* Test on Ev6 and clear it */
     while (!I2C_CheckEvent(i2c.i2c, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED)) {
-        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IG_ERR_HAL_I2C_SEND_SLAVE_ADDR);
+        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IGW_ERR_HAL_I2C_SEND_SLAVE_ADDR);
     }
 
     /* Clear EV6 by setting agian the PE bit */
@@ -195,26 +195,26 @@ ig_err_e hal_i2c_u16_read(hal_i2c_cfg_t i2c, uint8_t slave_addr, uint16_t reg_ad
     I2C_SendData(i2c.i2c, (reg_addr >> 8) & 0x00FF);
     /* Test on EV8 and clear it */
     while (!I2C_CheckEvent(i2c.i2c, I2C_EVENT_MASTER_BYTE_TRANSMITTED)) {
-        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IG_ERR_HAL_I2C_SEND_DATA);
+        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IGW_ERR_HAL_I2C_SEND_DATA);
     }
 
     /* Send the slave's internal address to write */
     I2C_SendData(i2c.i2c, reg_addr & 0x00FF);
     /* Test on EV8 and clear it */
     while (!I2C_CheckEvent(i2c.i2c, I2C_EVENT_MASTER_BYTE_TRANSMITTED)) {
-        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IG_ERR_HAL_I2C_SEND_DATA);
+        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IGW_ERR_HAL_I2C_SEND_DATA);
     }
 
     /* Send START condition a second time */
     I2C_GenerateSTART(i2c.i2c, ENABLE);
     while (!I2C_CheckEvent(i2c.i2c, I2C_EVENT_MASTER_MODE_SELECT)) {
-        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IG_ERR_HAL_I2C_SEND_START);
+        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IGW_ERR_HAL_I2C_SEND_START);
     }
 
     /* Send slave address for read */
     I2C_Send7bitAddress(i2c.i2c, (slave_addr << 1), I2C_Direction_Receiver);
     while (!I2C_CheckEvent(i2c.i2c, I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED)) {
-        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IG_ERR_HAL_I2C_SEND_SLAVE_ADDR);
+        HAL_I2C_WAIT_EVENT(HAL_I2C_FLAG_TIMEOUT_MS, IGW_ERR_HAL_I2C_SEND_SLAVE_ADDR);
     }
 
     /* While there is data to be read */
@@ -242,7 +242,7 @@ ig_err_e hal_i2c_u16_read(hal_i2c_cfg_t i2c, uint8_t slave_addr, uint16_t reg_ad
     /* Enable Acknowledgment to be ready for another reception */
     I2C_AcknowledgeConfig(i2c.i2c, ENABLE);
 
-    return IG_ERR_OK;
+    return IGW_ERR_OK;
 }
 
 void hal_i2c_init(hal_i2c_cfg_t i2c)

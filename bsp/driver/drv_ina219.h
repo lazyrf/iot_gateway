@@ -2,7 +2,7 @@
 #define __DRV_INA219_H
 
 #include <stdint.h>
-#include "ig_errno.h"
+#include "igw_errno.h"
 
 #define INA219_SLAVE_ADDR       0x40
 
@@ -81,14 +81,14 @@ typedef union {
     } fields;
 } ina219_config_t;
 
-ig_err_e drv_ina219_shunt_voltage_get(float *voltage);
-ig_err_e drv_ina219_bus_voltage_get(float *voltage);
-ig_err_e drv_ina219_config_get(ina219_config_t *config);
-ig_err_e drv_ina219_config_set(ina219_config_t config);
-ig_err_e drv_ina219_cali_get(uint16_t *data);
-ig_err_e drv_ina219_calib_set(uint16_t data);
-ig_err_e drv_ina219_current_get(float *current);
-ig_err_e drv_ina219_power_get(float *power);
+igw_err_t drv_ina219_shunt_voltage_get(float *voltage);
+igw_err_t drv_ina219_bus_voltage_get(float *voltage);
+igw_err_t drv_ina219_config_get(ina219_config_t *config);
+igw_err_t drv_ina219_config_set(ina219_config_t config);
+igw_err_t drv_ina219_cali_get(uint16_t *data);
+igw_err_t drv_ina219_calib_set(uint16_t data);
+igw_err_t drv_ina219_current_get(float *current);
+igw_err_t drv_ina219_power_get(float *power);
 void drv_ina219_set_calib_16v_400ma(void);
 void drv_ina219_set_calib_16v_800ma(void);
 void drv_ina219_set_calib_16v_1a(void);
