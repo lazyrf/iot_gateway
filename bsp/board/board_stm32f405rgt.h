@@ -38,6 +38,7 @@
     .scl = { .clk_cmd = RCC_AHB1PeriphClockCmd, .clk = RCC_AHB1Periph_GPIOB, .port = GPIOB, .pin = GPIO_Pin_6, .active_state = 0 }, \
     .sda = { .clk_cmd = RCC_AHB1PeriphClockCmd, .clk = RCC_AHB1Periph_GPIOB, .port = GPIOB, .pin = GPIO_Pin_7, .active_state = 0 }, \
     .af = GPIO_AF_I2C1, .addr = 0x1, .speed = 400000}}
+#define BOARD_I2C_SESNOR_IDX    0
 
 #endif /* __BOARD_STM32F405RGT_H */
 
