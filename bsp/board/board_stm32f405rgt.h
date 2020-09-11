@@ -3,6 +3,7 @@
 
 #include "hal_gpio.h"
 #include "hal_uart.h"
+#include "hal_i2c.h"
 
 #define BOARD_LED_NUM           2
 #define BOARD_LED_LIST          { \
@@ -30,6 +31,13 @@
     .rx = { .clk_cmd = RCC_AHB1PeriphClockCmd, .clk = RCC_AHB1Periph_GPIOA, .port = GPIOA, .pin = GPIO_Pin_3, .active_state = 0 }, \
     .af = GPIO_AF_USART2, .irq = USART2_IRQn }}
 #define BOARD_UART_DBG_IDX      0
+
+#define BOARD_I2C_NUM           1
+#define BOARD_I2C_LIST          { \
+    { .i2c = I2C1, .clk_cmd = RCC_APB1PeriphClockCmd, .clk = RCC_APB1Periph_I2C1, \
+    .scl = { .clk_cmd = RCC_AHB1PeriphClockCmd, .clk = RCC_AHB1Periph_GPIOB, .port = GPIOB, .pin = GPIO_Pin_6, .active_state = 0 }, \
+    .sda = { .clk_cmd = RCC_AHB1PeriphClockCmd, .clk = RCC_AHB1Periph_GPIOB, .port = GPIOB, .pin = GPIO_Pin_7, .active_state = 0 }, \
+    .af = GPIO_AF_I2C1, .addr = 0x1, .speed = 400000}}
 
 #endif /* __BOARD_STM32F405RGT_H */
 

@@ -24,7 +24,9 @@ hal_gpio_cfg_t di_gpio_list[BOARD_DI_NUM] = BOARD_DI_LIST;
 hal_uart_cfg_t uart_list[BOARD_UART_NUM] = BOARD_UART_LIST;
 #endif /* BOARD_UART_NUM > 0 */
 
-
+#if BOARD_I2C_NUM > 0
+hal_i2c_cfg_t i2c_list[BOARD_I2C_NUM] = BOARD_I2C_LIST;
+#endif /* BOARD_I2C_NUM > 0 */
 
 void board_init(void)
 {

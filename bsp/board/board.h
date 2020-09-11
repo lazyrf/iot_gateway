@@ -23,6 +23,10 @@ extern hal_gpio_cfg_t di_gpio_list[BOARD_DI_NUM];
 extern hal_uart_cfg_t uart_list[BOARD_UART_NUM];
 #endif /* BOARD_UART_NUM > 0 */
 
+#if BOARD_I2C_NUM > 0
+extern hal_i2c_cfg_t i2c_list[BOARD_I2C_NUM];
+#endif /* BOARD_I2C_NUM > 0 */
+
 void board_leds_init(void);
 void board_leds_on(void);
 void board_leds_off(void);
