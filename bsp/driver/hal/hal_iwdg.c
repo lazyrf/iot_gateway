@@ -1,10 +1,10 @@
-#include "drv_iwdg.h"
+#include "hal_iwdg.h"
 #include "stm32f4xx_iwdg.h"
 
 #define IWDG_PRV        IWDG_Prescaler_256
 #define IWDG_RLV        3125
 
-void drv_iwdg_feed(void)
+void hal_iwdg_feed(void)
 {
     IWDG_ReloadCounter();
 }
@@ -28,7 +28,7 @@ void drv_iwdg_feed(void)
  * Period = (4 * 2 ^ prv) / 40
  * Tout = rlv * period = rlv * (4 * 2 ^ prv) / 40
  */
-void drv_iwdg_init(void)
+void hal_iwdg_init(void)
 {
     /* Make Prv and ARR be writable */
     IWDG_WriteAccessCmd(IWDG_WriteAccess_Enable);

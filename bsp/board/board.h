@@ -5,7 +5,23 @@
 
 #if defined(CONFIG_BOARD_STM32F405RGT)
 #include "board_stm32f405rgt.h"
-#endif 
+#endif
+
+#if BOARD_LED_NUM > 0
+extern hal_gpio_cfg_t led_gpio_list[BOARD_LED_NUM];
+#endif /* BOARD_LED_NUM > 0 */
+
+#if BOARD_DO_NUM > 0
+extern hal_gpio_cfg_t do_gpio_list[BOARD_DO_NUM];
+#endif /* BOARD_DO_NUM > 0 */
+
+#if BOARD_DI_NUM > 0
+extern hal_gpio_cfg_t di_gpio_list[BOARD_DI_NUM];
+#endif /* BOARD_DI_NUM > 0 */
+
+#if BOARD_UART_NUM > 0
+extern hal_uart_cfg_t uart_list[BOARD_UART_NUM];
+#endif /* BOARD_UART_NUM > 0 */
 
 void board_leds_init(void);
 void board_leds_on(void);

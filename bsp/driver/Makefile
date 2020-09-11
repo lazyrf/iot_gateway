@@ -1,6 +1,6 @@
 
-obj-y += drv_gpio.o
-obj-y += drv_uart.o
-obj-y += drv_crc.o
-obj-y += drv_iwdg.o
-obj-y += drv_core.o
+obj-y += hal/
+obj-y += drv_led.o
+obj-y += drv_do.o
+obj-y += drv_di.o
+obj-y += drv_uart_dbg.o

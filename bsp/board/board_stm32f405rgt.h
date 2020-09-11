@@ -1,8 +1,8 @@
 #ifndef __BOARD_STM32F405RGT_H
 #define __BOARD_STM32F405RGT_H
 
-#include "drv_gpio.h"
-#include "drv_uart.h"
+#include "hal_gpio.h"
+#include "hal_uart.h"
 
 #define BOARD_LED_NUM           2
 #define BOARD_LED_LIST          { \
@@ -29,6 +29,7 @@
     .tx = { .clk_cmd = RCC_AHB1PeriphClockCmd, .clk = RCC_AHB1Periph_GPIOA, .port = GPIOA, .pin = GPIO_Pin_2, .active_state = 0 }, \
     .rx = { .clk_cmd = RCC_AHB1PeriphClockCmd, .clk = RCC_AHB1Periph_GPIOA, .port = GPIOA, .pin = GPIO_Pin_3, .active_state = 0 }, \
     .af = GPIO_AF_USART2, .irq = USART2_IRQn }}
+#define BOARD_UART_DBG_IDX      0
 
 #endif /* __BOARD_STM32F405RGT_H */
 

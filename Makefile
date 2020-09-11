@@ -41,7 +41,8 @@ INC = . \
 	$(BSPDIR)/sdk/CMSIS/Device/ST/STM32F4xx/Include \
 	$(BSPDIR)/sdk/STM32F4xx_StdPeriph_Driver/inc \
 	$(BSPDIR)/board \
-	$(BSPDIR)/driver
+	$(BSPDIR)/driver \
+	$(BSPDIR)/driver/hal
 
 CORE = -mcpu=$(CPU) -mthumb -mfloat-abi=soft
 

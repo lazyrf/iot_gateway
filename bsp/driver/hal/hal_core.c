@@ -1,7 +1,7 @@
-#include "drv_core.h"
+#include "hal_core.h"
 #include "stm32f4xx.h"
 
-void drv_core_systick_init(void)
+void hal_core_systick_init(void)
 {
     /* SystemFrequency / 1000 ==> 1ms interrupt */
     /* SystemFrequency / 100000 == > 10us interrupt */

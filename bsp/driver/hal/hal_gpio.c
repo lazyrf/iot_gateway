@@ -1,21 +1,21 @@
-#include "drv_gpio.h"
+#include "hal_gpio.h"
 
-uint8_t drv_gpio_pin_get_in_state(drv_gpio_cfg_t gpio)
+uint8_t hal_gpio_pin_get_in_state(hal_gpio_cfg_t gpio)
 {
     return GPIO_ReadInputDataBit(gpio.port, gpio.pin);
 }
 
-uint8_t drv_gpio_pin_get_out_state(drv_gpio_cfg_t gpio)
+uint8_t hal_gpio_pin_get_out_state(hal_gpio_cfg_t gpio)
 {
     return GPIO_ReadOutputDataBit(gpio.port, gpio.pin);
 }
 
-void drv_gpio_pin_toggle(drv_gpio_cfg_t gpio)
+void hal_gpio_pin_toggle(hal_gpio_cfg_t gpio)
 {
     gpio.port->ODR ^= gpio.pin;
 }
 
-void drv_gpio_pin_off(drv_gpio_cfg_t gpio)
+void hal_gpio_pin_off(hal_gpio_cfg_t gpio)
 {
     if (gpio.active_state) {
         gpio.port->BSRRH = gpio.pin;
@@ -24,7 +24,7 @@ void drv_gpio_pin_off(drv_gpio_cfg_t gpio)
     }
 }
 
-void drv_gpio_pin_on(drv_gpio_cfg_t gpio)
+void hal_gpio_pin_on(hal_gpio_cfg_t gpio)
 {
     if (gpio.active_state) {
         gpio.port->BSRRL = gpio.pin;
@@ -33,7 +33,7 @@ void drv_gpio_pin_on(drv_gpio_cfg_t gpio)
     }
 }
 
-void drv_gpio_cfg_input(drv_gpio_cfg_t gpio)
+void hal_gpio_cfg_input(hal_gpio_cfg_t gpio)
 {
     GPIO_InitTypeDef gpio_cfg;
     void (*rcc_clk_cmd)(uint32_t, FunctionalState);
@@ -49,7 +49,7 @@ void drv_gpio_cfg_input(drv_gpio_cfg_t gpio)
     GPIO_Init(gpio.port, &gpio_cfg);
 }
 
-void drv_gpio_cfg_output(drv_gpio_cfg_t gpio)
+void hal_gpio_cfg_output(hal_gpio_cfg_t gpio)
 {
     GPIO_InitTypeDef gpio_cfg;
     void (*rcc_clk_cmd)(uint32_t, FunctionalState);
@@ -67,7 +67,7 @@ void drv_gpio_cfg_output(drv_gpio_cfg_t gpio)
     GPIO_Init(gpio.port, &gpio_cfg);
 }
 
-void drv_gpio_cfg_af_pp(drv_gpio_cfg_t gpio, uint32_t af)
+void hal_gpio_cfg_af_pp(hal_gpio_cfg_t gpio, uint32_t af)
 {
     GPIO_InitTypeDef gpio_cfg;
     void (*rcc_clk_cmd)(uint32_t, FunctionalState);
