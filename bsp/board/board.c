@@ -28,7 +28,7 @@ hal_uart_cfg_t uart_list[BOARD_UART_NUM] = BOARD_UART_LIST;
 
 void board_init(void)
 {
-    hal_core_systick_init();
+    hal_core_systick_init(1000);
 
 #if BOARD_LED_NUM > 0
     drv_led_init();
