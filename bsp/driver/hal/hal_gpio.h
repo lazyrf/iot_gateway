@@ -15,6 +15,7 @@ typedef struct {
 void hal_gpio_cfg_output(hal_gpio_cfg_t pin);
 void hal_gpio_cfg_input(hal_gpio_cfg_t gpio);
 void hal_gpio_cfg_af_pp(hal_gpio_cfg_t gpio, uint32_t af);
+void hal_gpio_cfg_af_od(hal_gpio_cfg_t gpio, uint32_t af);
 void hal_gpio_pin_on(hal_gpio_cfg_t gpio);
 void hal_gpio_pin_off(hal_gpio_cfg_t gpio);
 void hal_gpio_pin_toggle(hal_gpio_cfg_t gpio);
