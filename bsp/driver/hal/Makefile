@@ -5,3 +5,4 @@ obj-y += hal_crc.o
 obj-y += hal_iwdg.o
 obj-y += hal_core.o
 obj-y += hal_i2c.o
+obj-y += hal_rtc.o
