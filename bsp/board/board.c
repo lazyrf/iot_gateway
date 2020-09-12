@@ -28,6 +28,10 @@ hal_uart_cfg_t uart_list[BOARD_UART_NUM] = BOARD_UART_LIST;
 hal_i2c_cfg_t i2c_list[BOARD_I2C_NUM] = BOARD_I2C_LIST;
 #endif /* BOARD_I2C_NUM > 0 */
 
+#if BOARD_RTC_ALARM_NUM > 0
+hal_rtc_alarm_t rtc_alarm_list[BOARD_RTC_ALARM_NUM] = BOARD_RTC_ALARM_LIST;
+#endif /* BOARD_RTC_ALARM_NUM > 0 */
+
 void board_init(void)
 {
     hal_core_systick_init(1000);

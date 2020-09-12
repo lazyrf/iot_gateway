@@ -27,6 +27,10 @@ extern hal_uart_cfg_t uart_list[BOARD_UART_NUM];
 extern hal_i2c_cfg_t i2c_list[BOARD_I2C_NUM];
 #endif /* BOARD_I2C_NUM > 0 */
 
+#if BOARD_RTC_ALARM_NUM > 0
+extern hal_rtc_alarm_t rtc_alarm_list[BOARD_RTC_ALARM_NUM];
+#endif /* BOARD_RTC_ALARM_NUM > 0 */
+
 void board_leds_init(void);
 void board_leds_on(void);
 void board_leds_off(void);
