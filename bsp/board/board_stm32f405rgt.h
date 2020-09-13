@@ -47,5 +47,7 @@
     HAL_RTC_ALARM_A, \
     HAL_RTC_ALARM_B}
 
+#define BOARD_WATCH_DOG_ENABLE  0
+
 #endif /* __BOARD_STM32F405RGT_H */
 
