@@ -20,6 +20,7 @@ TOPDIR		:= $(shell pwd)
 APPDIR		:= $(TOPDIR)/app
 COREDIR 	:= $(TOPDIR)/core
 BSPDIR		:= $(TOPDIR)/bsp
+LIBDIR		:= $(TOPDIR)/libs
 SDKDIR		:= $(BSPDIR)/sdk
 LDDIR		:= $(TOPDIR)/ld
 OUTDIR		:= $(TOPDIR)/build
@@ -42,7 +43,8 @@ INC = . \
 	$(BSPDIR)/sdk/STM32F4xx_StdPeriph_Driver/inc \
 	$(BSPDIR)/board \
 	$(BSPDIR)/driver \
-	$(BSPDIR)/driver/hal
+	$(BSPDIR)/driver/hal \
+	$(LIBDIR)
 
 CORE = -mcpu=$(CPU) -mthumb -mfloat-abi=soft
 
@@ -90,6 +92,7 @@ export CFLAGS LDFLAGS
 
 obj-y += app/
 obj-y += bsp/
+obj-y += libs/
 
 OUT_HEX = $(OUTDIR)/$(PROJ_NAME).hex
 OUT_BIN = $(OUTDIR)/$(PROJ_NAME).bin
