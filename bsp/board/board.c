@@ -34,8 +34,6 @@ hal_rtc_alarm_t rtc_alarm_list[BOARD_RTC_ALARM_NUM] = BOARD_RTC_ALARM_LIST;
 
 void board_init(void)
 {
-    hal_core_systick_init(1000);
-
 #if BOARD_LED_NUM > 0
     drv_led_init();
 #endif /* BOARD_LED_NUM > 0 */
