@@ -14,9 +14,10 @@ void hal_core_nvic_enable(IRQn_Type irq, uint32_t prio)
 void hal_core_systick_init(uint32_t period)
 {
     uint32_t tick;
+    uint32_t clk_mega;
 
-    tick = SystemCoreClock * period / 1000000;
-
+    clk_mega = SystemCoreClock / 1000000;
+    tick = clk_mega * period;
     SysTick_Config(tick);
 }
 
