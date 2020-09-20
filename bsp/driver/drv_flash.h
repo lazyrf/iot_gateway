@@ -4,6 +4,7 @@
 #include "stm32f4xx.h"
 #include "igw_errno.h"
 
+igw_err_t drv_flash_erase(uint32_t start_addr, uint32_t end_addr);
 igw_err_t drv_flash_write_word(__IO uint32_t address, uint32_t *data, uint32_t len);
 igw_err_t drv_flash_write_byte(__IO uint32_t address, uint8_t *data, uint32_t len);
 

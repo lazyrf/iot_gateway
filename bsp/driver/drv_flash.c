@@ -4,10 +4,23 @@
 #include "hal_flash.h"
 #include "board.h"
 
+igw_err_t drv_flash_erase(uint32_t start_addr, uint32_t end_addr)
+{
+    igw_err_t rv;
+
+    hal_flash_unlock();
+
+    rv = hal_flash_erase(start_addr, end_addr);
+
+    hal_flash_lock();
+
+    return rv;
+}
+
 igw_err_t drv_flash_write_word(__IO uint32_t address, uint32_t *data, uint32_t len)
 {
     uint32_t i;
-    igw_err_t rv;
+    igw_err_t rv = IGW_ERR_OK;
 
     hal_flash_unlock();
 
@@ -37,7 +50,7 @@ igw_err_t drv_flash_write_word(__IO uint32_t address, uint32_t *data, uint32_t l
 igw_err_t drv_flash_write_byte(__IO uint32_t address, uint8_t *data, uint32_t len)
 {
     uint32_t i;
-    igw_err_t rv;
+    igw_err_t rv = IGW_ERR_OK;
 
     hal_flash_unlock();
 
