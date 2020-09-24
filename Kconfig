@@ -291,3 +291,19 @@ mainmenu "Project Configuration"
                 bool "STM32F407ZG board"
         endchoice
     endmenu
+
+    menu "RTOS"
+        # Include RTOS
+        config INCLUDE_RTOS
+            bool "Include RTOS"
+            default n
+            help
+                Include RTOS source
+
+        choice RTOS
+            prompt "RTOS"
+            depends on INCLUDE_RTOS
+            config RTOS_FREERTOS
+                bool "FreeRTOS"
+        endchoice
+    endmenu

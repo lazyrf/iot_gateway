@@ -22,6 +22,7 @@ COREDIR 	:= $(TOPDIR)/core
 BSPDIR		:= $(TOPDIR)/bsp
 LIBDIR		:= $(TOPDIR)/libs
 SDKDIR		:= $(BSPDIR)/sdk
+RTOSDIR 	:= $(BSPDIR)/rtos
 LDDIR		:= $(TOPDIR)/ld
 OUTDIR		:= $(TOPDIR)/build
 export TOPDIR OUTDIR
@@ -45,6 +46,13 @@ INC = . \
 	$(BSPDIR)/driver \
 	$(BSPDIR)/driver/hal \
 	$(LIBDIR)
+
+ifeq ($(CONFIG_RTOS_FREERTOS),y)
+	INC += $(RTOSDIR)/freertos \
+		$(RTOSDIR)/freertos/include \
+		$(RTOSDIR)/freertos/port/ARM_CM4F
+endif
+
 
 CORE = -mcpu=$(CPU) -mthumb -mfloat-abi=soft
 
