@@ -12,7 +12,11 @@ void drv_misc_iwdg_feed(void)
 
 void drv_misc_init(void)
 {
+    hal_core_nvic_init();
+
+#if !CONFIG_RTOS_FREERTOS
     hal_core_systick_init(1000);
+#endif /* !CONFIG_RTOS_FREERTOS */
 
 #if BOARD_WATCHDOG_ENABLE
     hal_iwdg_init();
